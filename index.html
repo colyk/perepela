@@ -2,14 +2,237 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Перепела</title>
-  <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre.min.css">
-  <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-exp.min.css">
-  <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-icons.min.css">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/spectre.css">
+  <link rel="stylesheet" href="css/spectre-exp.css">
+  <link rel="stylesheet" href="css/spectre-icons.css">
+
+  <script src="jquery.min.js"></script>
 </head>
 <body>
-<h1>Hi!</h1>
+<div class="container">
+  <div class="columns">
+    <h3 class="title">Параметры перепёлок</h3>
+    <div class="column col-4 col-sm-12 c-block">
+      <div class="info-block">
+        <h5 class="info-block__title">Цена яйца</h5>
+        <div class="info-block__value">
+          <input type="number" class="form-input egg_value" value="1.8" step="0.1">
+          <small class="label">UAH</small>
+        </div>
+      </div>
+    </div>
+    <div class="column col-4 col-sm-6 c-block">
+      <div class="info-block">
+        <h5 class="info-block__title">Цена лотка</h5>
+        <div class="info-block__value">
+          <input type="number" class="form-input box_value" value="1.2" step="0.1">
+          <small class="label">UAH</small>
+        </div>
+      </div>
+    </div>
+    <div class="column col-4 col-sm-6 c-block">
+      <div class="info-block">
+        <h5 class="info-block__title">Вместимость лотка</h5>
+        <div class="info-block__value">
+          <input type="number" class="form-input box_egg_count" value="20" step="10" min="10">
+          <small class="label">штук</small>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="columns">
+    <div class="column col-6 col-sm-6 c-block">
+      <div class="info-block">
+        <h5 class="info-block__title">Количество перепёлок</h5>
+        <div class="info-block__value">
+          <input type="number" class="form-input perep_count" value="100" step="1">
+          <small class="label">штук</small>
+        </div>
+      </div>
+    </div>
+    <div class="column col-6 col-sm-6 c-block">
+      <div class="info-block">
+        <h5 class="info-block__title">Яиц в год</h5>
+        <div class="info-block__value">
+          <input type="number" class="form-input egg_in_year" value="280" step="1">
+          <small class="label">штук</small>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3 class="title">Параметры корма</h3>
+
+  <div class="columns">
+    <div class="column col-6 col-sm-6 c-block">
+      <div class="info-block">
+        <h5 class="info-block__title">Потребление корма</h5>
+        <div class="info-block__value">
+          <input type="number" class="form-input feed_consumption" value="35" step="1">
+          <small class="label">грамм/день</small>
+        </div>
+      </div>
+    </div>
+    <div class="column col-6 col-sm-6 c-block">
+      <div class="info-block">
+        <h5 class="info-block__title">Цена корма</h5>
+        <div class="info-block__value">
+          <input type="number" class="form-input feed_price" value="16" step="1">
+          <small class="label">UAH</small>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3 class="title">Параметры воды</h3>
+
+  <div class="columns">
+    <div class="column col-6 col-sm-6 c-block">
+      <div class="info-block">
+        <h5 class="info-block__title">Потребление воды</h5>
+        <div class="info-block__value">
+          <input type="number" class="form-input water_consumption" value="70" step="1">
+          <small class="label">грамм/день</small>
+        </div>
+      </div>
+    </div>
+    <div class="column col-6 col-sm-6 c-block">
+      <div class="info-block">
+        <h5 class="info-block__title">Цена воды</h5>
+        <div class="info-block__value">
+          <input type="number" class="form-input water_price" value="0.1" step="0.01">
+          <small class="label">UAH</small>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <button class="btn calc-btn">Рассчитать</button>
+
+  <h3 class="title">Расходы на корм</h3>
+
+  <div class="columns">
+    <div class="column col-4 col-sm-6 c-block">
+      <div class="info-block">
+        <h5 class="info-block__title">Потребление корма в месяц на перепёлку</h5>
+        <div class="info-block__value">
+          <span class="costs__month_feed_consumption_per_perep">-</span> <small class="label">кг</small>
+        </div>
+      </div>
+    </div>
+    <div class="column col-4 col-sm-6 c-block">
+      <div class="info-block">
+        <h5 class="info-block__title">Общее потребление корма в месяц</h5>
+        <div class="info-block__value">
+          <span class="costs__month_feed_consumption">-</span> <small class="label">кг</small>
+        </div>
+      </div>
+    </div>
+    <div class="column col-4 col-sm-12 c-block bg-error">
+      <div class="info-block">
+        <h5 class="info-block__title">Цена корма в месяц</h5>
+        <div class="info-block__value">
+          <span class="costs__month_feed_price">-</span> <small class="label">UAH</small>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3 class="title">Расходы на воду</h3>
+
+  <div class="columns">
+    <div class="column col-4 col-sm-6 c-block">
+      <div class="info-block">
+        <h5 class="info-block__title">Потребление воды в месяц на перепёлку</h5>
+        <div class="info-block__value">
+          <span class="costs__month_water_consumption_per_perep">-</span> <small class="label">л</small>
+        </div>
+      </div>
+    </div>
+    <div class="column col-4 col-sm-6 c-block">
+      <div class="info-block">
+        <h5 class="info-block__title">Общее потребление воды в месяц</h5>
+        <div class="info-block__value">
+          <span class="costs__month_water_consumption">-</span> <small class="label">л</small>
+        </div>
+      </div>
+    </div>
+    <div class="column col-4 col-sm-12 c-block bg-error">
+      <div class="info-block">
+        <h5 class="info-block__title">Цена воды в месяц</h5>
+        <div class="info-block__value">
+          <span class="costs__month_water_price">-</span> <small class="label">UAH</small>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3 class="title">Расходы на лотки</h3>
+
+  <div class="columns">
+    <div class="column col-6 col-sm-6 c-block">
+      <div class="info-block">
+        <h5 class="info-block__title">Необходимо лотков в месяц</h5>
+        <div class="info-block__value">
+          <span class="costs__box_count">-</span> <small class="label">шт</small>
+        </div>
+      </div>
+    </div>
+    <div class="column col-6 col-sm-6 c-block bg-error">
+      <div class="info-block">
+        <h5 class="info-block__title">Стоимость лотков</h5>
+        <div class="info-block__value">
+          <span class="costs__box_price">-</span> <small class="label">UAH</small>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3 class="title">Доходы</h3>
+
+  <div class="columns">
+    <div class="column col-6 col-sm-6 c-block">
+      <div class="info-block">
+        <h5 class="info-block__title">Яиц в месяц</h5>
+        <div class="info-block__value">
+          <span class="income__egg_in_month">-</span> <small class="label">штук</small>
+        </div>
+      </div>
+    </div>
+    <div class="column col-6 col-sm-6 c-block">
+      <div class="info-block">
+        <h5 class="info-block__title">Стоимость продажи яиц</h5>
+        <div class="info-block__value">
+          <span class="income__egg_in_month_price">-</span> <small class="label">UAH</small>
+        </div>
+      </div>
+    </div>
+    <div class="column col-12 col-sm-12 c-block bg-success">
+      <div class="info-block">
+        <h5 class="info-block__title">Чистая прибыль</h5>
+        <div class="info-block__value">
+          <strong class="income">-</strong> <small class="label">UAH</small>
+        </div>
+        <div class="info-block__value">
+          <span class="income__euro">-</span> <small class="label">€</small>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script src="main.js" defer="defer"></script>
 </body>
 </html>
